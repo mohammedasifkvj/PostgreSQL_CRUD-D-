@@ -1,9 +1,9 @@
 // centrelised error handler
 
 const errorHandler = (err, req, res, next) => {
-    // if (res.headersSent) {
-    //     return next(err);
-    // }
+    if (res.headersSent) {
+        return next(err);
+    }
     console.error(err.stack || err);  // Fallback in case err.stack doesn't exist
     res.status(500).json({
         status: 500,
@@ -12,4 +12,4 @@ const errorHandler = (err, req, res, next) => {
     });
 };
 
-export default errorHandler;  // Use module.exports = errorHandler; if using CommonJS
+export default errorHandler;

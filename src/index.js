@@ -9,15 +9,16 @@ import createUserTable from "./data/createUserTable.js";
 
 dotenv.config();
 
-const app=express();
-const port=process.env.PORT || 8001;
+const app = express();
+const port = process.env.PORT || 8001;
 
 // Middlewares
 app.use(express.json());
 app.use(cors())
 
 // Routes
-app.use("/api",userRoutes)
+app.use("/api", userRoutes)
+
 // Error handling middleware
 app.use(errorHandler)
 
@@ -25,13 +26,13 @@ app.use(errorHandler)
 createUserTable();
 
 // Test
-app.get('/',async(req,res)=>{
+app.get('/', async (req, res) => {
     console.log("start");
-    const result=await pool.query("SELECT current_database()");
+    const result = await pool.query("SELECT current_database()");
     console.log("end");
     res.send(`The DB name is : ${result.rows[0].current_database}`)
 });
 
-app.listen(port,()=>{
+app.listen(port, () => {
     console.log(`Listening on http://127.0.0.1:${port}`);
 })
